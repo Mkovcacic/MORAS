@@ -1,0 +1,66 @@
+CHIP Clz{
+    IN in[16];
+	OUT out[16];
+	PARTS:
+	//Odredimo koliko je bitova 0 prije nego naidjemo na 1
+	//zato ce svaki out nakon sto nademo 1 biti 1
+    Or(a = in[15], b = false, out = out0);
+    Or(a = in[14], b = out0, out = out1);
+    Or(a = in[13], b = out1, out = out2);
+    Or(a = in[12], b = out2, out = out3);
+    Or(a = in[11], b = out3, out = out4);
+    Or(a = in[10], b = out4, out = out5);
+    Or(a = in[9], b = out5, out = out6);
+    Or(a = in[8], b = out6, out = out7);
+    Or(a = in[7], b = out7, out = out8);
+    Or(a = in[6], b = out8, out = out9);
+    Or(a = in[5], b = out9, out = out10);
+    Or(a = in[4], b = out10, out = out11);
+    Or(a = in[3], b = out11, out = out12);
+    Or(a = in[2], b = out12, out = out13);
+    Or(a = in[1], b = out13, out = out14);
+    Or(a = in[0], b = out14, out = out15);
+	
+	//Negiramo oute tako da od 0 dobijemo 1 a od 1 0 
+	Not(in = out0, out = Nout0);
+	Not(in = out1, out = Nout1);
+	Not(in = out2, out = Nout2);
+	Not(in = out3, out = Nout3);
+	Not(in = out4, out = Nout4);
+	Not(in = out5, out = Nout5);
+	Not(in = out6, out = Nout6);
+	Not(in = out7, out = Nout7);
+	Not(in = out8, out = Nout8);
+	Not(in = out9, out = Nout9);
+	Not(in = out10, out = Nout10);
+	Not(in = out11, out = Nout11);
+	Not(in = out12, out = Nout12);
+	Not(in = out13, out = Nout13);
+	Not(in = out14, out = Nout14);
+	Not(in = out15, out = Nout15);
+	
+   //Na isti nacin kao Diff chipu zbrojimo oute
+   FullAdder(a= Nout0, b= Nout1, c= Nout2, sum= sum1, carry= carry01);
+   FullAdder(a= Nout3, b= Nout4, c= Nout5, sum= sum2, carry= carry02);
+   FullAdder(a= Nout6, b= Nout7, c= Nout8, sum= sum3, carry= carry03);
+   FullAdder(a= Nout9, b= Nout10, c= Nout11, sum= sum4, carry= carry04);
+   FullAdder(a= Nout12, b= Nout13, c= Nout14, sum= sum5, carry= carry05);
+   
+   FullAdder(a= sum1, b= sum2, c= sum3, sum= sum01,carry= carry11);
+   FullAdder(a= sum4, b= sum5, c= Nout15, sum= sum02,carry= carry12);
+   
+   HalfAdder(a= sum01, b= sum02, sum= out[0], carry= carry10);
+   
+
+   FullAdder(a= carry01, b= carry02, c= carry03,sum= sum11,carry= carry21);
+   FullAdder(a= carry04, b= carry05, c = carry10, sum= sum12, carry= carry22);
+   HalfAdder(a= carry11, b= carry12, sum= sum13, carry= carry23);
+   
+   FullAdder(a= sum11, b= sum12, c= sum13, sum= out[1], carry= carry20);
+
+
+   FullAdder(a = carry20, b = carry21, c = carry22, sum = sum20,carry = carry30);
+   HalfAdder(a = sum20, b = carry23, sum = out[2], carry = carry31);
+
+   FullAdder(a = carry30, b = carry31, sum = out[3], carry = carry4);
+}

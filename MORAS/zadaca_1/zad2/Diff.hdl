@@ -1,0 +1,48 @@
+CHIP Diff{
+   IN a[16], b[16];
+   OUT out[16];
+   PARTS:
+   //Odredimo koliko se bitova razlikuje
+   Xor(a = a[0], b = b[0], out = out0);
+   Xor(a = a[1], b = b[1], out = out1);
+   Xor(a = a[2], b = b[2], out = out2);
+   Xor(a = a[3], b = b[3], out = out3);
+   Xor(a = a[4], b = b[4], out = out4);
+   Xor(a = a[5], b = b[5], out = out5);
+   Xor(a = a[6], b = b[6], out = out6);
+   Xor(a = a[7], b = b[7], out = out7);
+   Xor(a = a[8], b = b[8], out = out8);
+   Xor(a = a[9], b = b[9], out = out9);
+   Xor(a = a[10], b = b[10], out = out10);
+   Xor(a = a[11], b = b[11], out = out11);
+   Xor(a = a[12], b = b[12], out = out12);
+   Xor(a = a[13], b = b[13], out = out13);
+   Xor(a = a[14], b = b[14], out = out14);
+   Xor(a = a[15], b = b[15], out = out15);
+   
+   //Zbrajamo oute iz Xor i nalazimo out[0] a carryere "prebacujemo" da nadjemo out[1]
+   FullAdder(a= out0, b= out1, c= out2, sum= sum1, carry= carry01);
+   FullAdder(a= out3, b= out4, c= out5, sum= sum2, carry= carry02);
+   FullAdder(a= out6, b= out7, c= out8, sum= sum3, carry= carry03);
+   FullAdder(a= out9, b= out10, c= out11, sum= sum4, carry= carry04);
+   FullAdder(a= out12, b= out13, c= out14, sum= sum5, carry= carry05);
+   
+   FullAdder(a= sum1, b= sum2, c= sum3, sum= sum01,carry= carry11);
+   FullAdder(a= sum4, b= sum5, c= out15, sum= sum02,carry= carry12);
+   
+   HalfAdder(a= sum01, b= sum02, sum= out[0], carry= carry10);
+   
+   //Na isti nacin kao za out[0] odredimo out[1]
+   FullAdder(a= carry01, b= carry02, c= carry03,sum= sum11,carry= carry21);
+   FullAdder(a= carry04, b= carry05, c = carry10, sum= sum12, carry= carry22);
+   HalfAdder(a= carry11, b= carry12, sum= sum13, carry= carry23);
+   
+   FullAdder(a= sum11, b= sum12, c= sum13, sum= out[1], carry= carry20);
+   
+   //Dobivamo i out[3] i out[4]
+   FullAdder(a = carry20, b = carry21, c = carry22, sum = sum20,carry = carry30);
+   HalfAdder(a = sum20, b = carry23, sum = out[2], carry = carry31);
+   
+   //carry ovdje zanemarimo jer nijedan broj nije negativan
+   FullAdder(a = carry30, b = carry31, sum = out[3], carry = carry4);
+}

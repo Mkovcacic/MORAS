@@ -1,0 +1,9 @@
+CHIP And3 {
+//zad 1 b)
+   IN x, y, z;
+   OUT out;
+   PARTS:
+   Not(in = y, out = Noty);
+   And(a = x, b = Noty, out = out1);
+   And(a = out1, b = z, out = out);
+}

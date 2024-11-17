@@ -1,0 +1,59 @@
+CHIP RoundToPow{
+   IN in[16];
+   OUT out[16];
+   PARTS:
+   //Pomocu Or chipa naci cemo najveci bit koji je 1
+   // a nakon njega ce nam outi biti isto 1
+   // out[15] odmah fiksiramo jer je prvi bit u sabirnici
+   Or(a = in[15], b = false, out = out[15], out = out15);
+   Or(a = in[14], b = out15, out = out14);
+   Or(a = in[13], b = out14, out = out13);
+   Or(a = in[12], b = out13, out = out12);
+   Or(a = in[11], b = out12, out = out11);
+   Or(a = in[10], b = out11, out = out10);
+   Or(a = in[9], b = out10, out = out9);
+   Or(a = in[8], b = out9, out = out8);
+   Or(a = in[7], b = out8, out = out7);
+   Or(a = in[6], b = out7, out = out6);
+   Or(a = in[5], b = out6, out = out5);
+   Or(a = in[4], b = out5, out = out4);
+   Or(a = in[3], b = out4, out = out3);
+   Or(a = in[2], b = out3, out = out2);
+   Or(a = in[1], b = out2, out = out1);
+   
+   //Negiramo oute za poslije
+   Not(in = out15, out = Nout15);
+   Not(in = out14, out = Nout14);
+   Not(in = out13, out = Nout13);
+   Not(in = out12, out = Nout12);
+   Not(in = out11, out = Nout11);
+   Not(in = out10, out = Nout10);
+   Not(in = out9, out = Nout9);
+   Not(in = out8, out = Nout8);
+   Not(in = out7, out = Nout7);
+   Not(in = out6, out = Nout6);
+   Not(in = out5, out = Nout5);
+   Not(in = out4, out = Nout4);
+   Not(in = out3, out = Nout3);
+   Not(in = out2, out = Nout2);
+   Not(in = out1, out = Nout1);
+   
+   //Za svaki bit koristimo chip And tako da
+   //uzmemo in[i] i Nout[i+1] jer ako je neki in signifikantniji
+   //od in[i] 1 onda je Nout[i+1] sigurno 0 pa je out[i] 0
+   And(a = in[14], b = Nout15, out = out[14]);
+   And(a = in[13], b = Nout14, out = out[13]);
+   And(a = in[12], b = Nout13, out = out[12]);
+   And(a = in[11], b = Nout12, out = out[11]);
+   And(a = in[10], b = Nout11, out = out[10]);
+   And(a = in[9], b = Nout10, out = out[9]);
+   And(a = in[8], b = Nout9, out = out[8]);
+   And(a = in[7], b = Nout8, out = out[7]);
+   And(a = in[6], b = Nout7, out = out[6]);
+   And(a = in[5], b = Nout6, out = out[5]);
+   And(a = in[4], b = Nout5, out = out[4]);
+   And(a = in[3], b = Nout4, out = out[3]);
+   And(a = in[2], b = Nout3, out = out[2]);
+   And(a = in[1], b = Nout2, out = out[1]);
+   And(a = in[0], b = Nout1, out = out[0]);
+}
