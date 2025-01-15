@@ -1,0 +1,3 @@
+Rješenja prvog i drugog zadatka nalaze se unutar parseSymbs.py datoteke. Zad 1 pod nazivom 
+_parse_address koja se izvršava nakon što se svakom pozivu kao npr "@START_LOOP" dodijeli adresa.
+Zad 2 pod nazivom _parse_macro sadrži sve podzadatke i izvršava se prvi u _parse_symbols.
