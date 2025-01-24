@@ -1,0 +1,2 @@
+push local 0
+goto Second

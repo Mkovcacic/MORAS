@@ -1,0 +1,92 @@
+push static 0
+push static 1
+push static 2
+
+call BS.search 3
+pop static 3
+
+label END
+goto END
+
+function BS.search 6
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop local 1
+
+label start1
+push local 0
+push local 1
+gt
+if-goto JUMP0
+
+push local 0
+push local 1
+push local 0
+sub
+call BS.div 1
+add
+pop local 2
+
+push argument 0
+push local 2
+add
+pop pointer 1
+push that 0
+push argument 2
+eq
+if-goto CATCH
+
+push that 0
+push argument 2
+lt
+if-goto REFRESH
+
+push local 2
+push constant 1
+sub
+pop local 1
+
+goto START1
+
+label REFRESH
+push local 2
+push constant 1
+add
+pop local 0
+
+goto START1
+
+label CATCH
+push local 2
+return
+
+label JUMP0
+push constant 0
+push constant 1
+sub
+return
+
+
+function BS.div 1
+label WHILE1
+push argument 0
+push constant 2
+lt
+not
+not
+if-goto WHILE1_END
+push local 0
+push constant 1
+add
+pop local 0
+push argument 0
+push constant 2
+sub
+pop argument 0
+goto WHILE1
+label WHILE1_END
+push local 0
+return

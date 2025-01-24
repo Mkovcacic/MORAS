@@ -1,0 +1,39 @@
+// push argumente funkcije
+push static 0
+push static 1
+push static 2
+
+// pozovi funkciju Min.min s 3 argumenta
+call Min.min 3
+
+// rezultat funkcije sprema u RAM[16]
+pop static 3
+
+label END
+goto END
+
+function Min.min 3
+push argument 1
+push argument 0
+lt
+if-goto IF_TRUE0
+goto IF_CONTINUE0
+
+label IF_TRUE0
+push argument 1
+pop argument 0
+
+label IF_CONTINUE0
+push argument 2
+push argument 0
+lt
+if-goto IF_TRUE1
+goto IF_CONTINUE1
+
+label IF_TRUE1
+push argument 2
+pop argument 0
+
+label IF_CONTINUE1
+push argument 0
+return
