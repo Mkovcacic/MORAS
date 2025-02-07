@@ -1,0 +1,80 @@
+class Main{
+    function void main(){
+        var Vint C, D;
+        var int i;
+
+        let C = Vint.new(2);
+
+        let D = Vint.new(1);
+
+        do Output.printString("Size prvog vektora je: ");
+        do Output.printInt(C.len());
+        do Output.println();
+
+        do C.set(0,4);
+        do C.set(1,5);
+        do C.set(2,3);
+        do C.set(3,2);
+
+        do C.set(5,8);
+        do Output.printInt(C.get(3));
+        do Output.println();
+
+        do Output.printString("Prije resizea: ");
+        let i = 0;
+        while (i < C.len()) {
+            do Output.printInt(C.get(i));
+            do Output.printString(" "); // Space
+            let i = i + 1;
+        }
+        do Output.println();
+
+        do C.resize(1);
+
+        do Output.printString("Nakon resizea: ");
+        let i = 0;
+        while (i < C.len()) {
+            do Output.printInt(C.get(i));
+            do Output.printString(" "); // Space
+            let i = i + 1;
+        }
+        do Output.println();
+
+        if (Vint.is_eq(C, C)){
+            do Output.printString("C i C su jednaki");
+            do Output.println();
+        }
+
+        else{
+            do Output.printString("C i C nisu jednaki");
+            do Output.println();
+        }
+
+        do D.set(0,5);
+        do D.set(1,4);
+
+        if (Vint.is_eq(C, D)){
+            do Output.printString("C i D su jednaki");
+            do Output.println();
+        }
+
+        else{
+            do Output.printString("C i D nisu jednaki");
+            do Output.println();
+        }
+
+        if (Vint.elems(C, D)){
+            do Output.printString("C i D su po elemsu jednaki");
+            do Output.println();
+        }
+
+        else{
+            do Output.printString("C i D nisu po elemsu jednaki");
+            do Output.println();
+        }
+
+        do C.dispose();
+        do D.dispose();
+        return;
+    }
+}

@@ -1,0 +1,118 @@
+class Vint 
+{
+    field Array A;
+    field int size;
+
+    method int len(){
+        return size;
+    }
+
+    constructor Vint new(int n) {
+        var int i;
+        if (~(n > 0)){
+            let size = 1;
+        }
+        else{
+            let size = 1;
+
+            while(i < n){
+                let size = Math.multiply(size, 2);
+                let i = i + 1;
+            }
+        }
+
+        let A = Array.new(size);
+
+        return this;
+    }
+
+    method void set(int k, int v){
+
+        if((k < size) & (k > -1)){
+            let A[k] = v;
+        }
+        else{
+            do Output.printString("Krivi unos broja k u seteru!");
+            do Output.println();
+        }
+        return;
+
+    }
+
+    method main get(int k){
+
+        if((k < size) & (k > -1)){
+            return A[k];
+        }
+        else{
+            do Output.printString("Krivi unos broja k u geteru!");
+            do Output.println();
+        }
+        return -1;
+    }
+
+    method void resize(int m){
+        var int i, n, k;
+        var Array B;
+        let n = size;
+
+        if (~(m > 0)){
+            let size = 1;
+        }
+
+        else{
+            let size = 1;
+            while(i < m){
+                let size = Math.multiply(size, 2);
+                let i = i + 1;
+            }
+        }
+
+        let k = Math.min(n, size);
+        let B = Array.new(size);
+        let i = 0;
+        while (i < k){
+            let B[i] = A[i];
+            let i = i + 1;
+        }
+        let A = B;
+        return ;
+    }
+
+    function boolean is_eq(Vint A, Vint B){
+        var int as, bs, i;
+
+        let as = A.len();
+        let bs = B.len();
+        
+        if(~(as = bs)){
+            return false;
+        }
+
+        else{
+            while(i < A.len()){
+
+                if (~(A.get(i) = B.get(i))){
+                    return false;
+                }
+
+                let i = i + 1;
+            }
+        }
+        return true;
+    }
+
+    function boolean elems(Vint A, Vint B){
+        
+        do Sort2.quicksort(A, 0, (A.len()-1) );
+        do Sort2.quicksort(B, 0, (B.len()-1) );
+
+        return Vint.is_eq(A, B);
+
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

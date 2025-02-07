@@ -1,0 +1,56 @@
+class Graf
+{
+    function int functionf(int x){ // funckija f : Int -> Int
+        var int fx;
+        let fx = x + 5;
+        return fx;
+    }
+
+    function void draw(){
+        var int x;
+        let x = -32;
+        do Screen.drawLine(127, 0, 127, 255);
+        do Screen.drawLine(0, 127, 255, 127);
+        while (x < 32){
+            do Graf.funcint(x);
+            let x = x + 1;
+        }
+        return ;
+    }
+
+    function void funcint(int x){
+        var int y, a, b;
+        let a = x + 1;
+        let y = Graf.functionf(x);
+        let b = Graf.functionf(a);
+
+
+        if (( (y > -33) & (b > -33) ) & ( (y < 33) & (b < 33) )){
+
+            let x = Math.multiply(x,4);
+            let x = 128 + x;
+
+            let y = Math.multiply(y,4);
+            let y = 128 - y;
+
+            if (y > 255){
+                let y = 255;
+            }
+
+            let a = Math.multiply(a,4);
+            let a = 128 + a;
+
+            let b = Math.multiply(b,4);
+            let b = 128 - b;
+
+            if (b > 255){
+                let b = 255;
+            }
+
+            do Screen.drawLine(x, y, a, b);
+
+        }
+        return ;
+    } 
+
+}

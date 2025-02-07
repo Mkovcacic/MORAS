@@ -1,0 +1,39 @@
+class Sort2
+{
+    function int partition(Vint A, int lo, int hi){
+         var int pivot, i, j, t;
+
+         let pivot = A.get(hi);
+         let i = lo - 1;
+         let j = lo;
+         while(j < hi){
+            if ( ~(A.get(j) > pivot)){
+                let i = i + 1;
+
+                let t = A.get(i);
+                do A.set( i , A.get(j) );
+                do A.set( j , t);
+            }
+            let j = j + 1;
+         }
+
+         let t = A.get(i+1);
+         do A.set( i + 1, A.get(hi) );
+         do A.set(hi, t);
+
+         return i + 1;
+    }
+
+    function void quicksort(Vint A, int lo, int hi){ 
+        // quicksort prima polje A, prvi indeks i zadnji indeks u polju A
+        var int p;
+
+        if (lo < hi){
+            let p = Sort2.partition(A, lo, hi);
+
+            do Sort2.quicksort(A, lo, p - 1);
+            do Sort2.quicksort(A, p + 1, hi);
+        }
+        return ;
+    }
+}

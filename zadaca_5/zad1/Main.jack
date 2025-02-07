@@ -1,0 +1,36 @@
+class Main
+{
+    function void main() {
+    var Array A;
+    var int size;
+    var int i;
+
+    let size = Keyboard.readInt("Unesite duljnu polja: ");
+    let A = Array.new(size);
+
+    let i = 0;
+    while (i < size)
+    {
+        do Output.printString("Unesite broj ");
+        do Output.printInt(i);
+        do Output.printString(":");
+        let A[i] = Keyboard.readInt("");
+        let i = i + 1;
+    }
+
+    // polje A, prvi indeks polja A i zadnji indeks polja A
+    do Sort.quicksort(A, 0, size - 1); 
+
+    do Output.printString("Sortirano polje: ");
+    let i = 0;
+    while (i < size) {
+        do Output.printInt(A[i]);
+        do Output.printString(" "); // Space
+        let i = i + 1;
+    }
+    do Output.println();
+
+    do A.dispose();
+    return;
+    }
+}
